@@ -36,16 +36,21 @@ ros2 topic info /Pose
 ### Results
 
 - The `list` showed the /Pose
-	- ![[Pasted image 20250904130428.png]]
+	- <img width="187" height="52" alt="Pasted image 20250904130428" src="https://github.com/user-attachments/assets/b6581817-4a6b-4b96-8db1-65005301e3cc" />
+
 - The `echo` showed the header and the pose updating
-	- ![[Pasted image 20250904130406.png]]
+	- <img width="213" height="273" alt="Pasted image 20250904130406" src="https://github.com/user-attachments/assets/04c036b6-7525-4a30-ad22-0a37f7b82b56" />
+
 - The `hz` showed the average rate of 1.000 with slight changes between the min and the max
-	- ![[Pasted image 20250904130242.png]]
+	- <img width="493" height="158" alt="Pasted image 20250904130242" src="https://github.com/user-attachments/assets/131a765a-4e59-4ecb-a63a-bc00212afe62" />
+
 - The `info` showed the type of `PoseStamped` and 1 publisher and 1 subscription
-	- ![[Pasted image 20250904130313.png]]
+	- <img width="334" height="51" alt="Pasted image 20250904130313" src="https://github.com/user-attachments/assets/8a84e520-3a3e-44d8-b629-f6cbb03a7ea3" />
+
 	- The `info` didn't seem to work without the `/` -symbol like the other commands did
 
-![[Publisher and subscriber for Pose.png|%]]
+<img width="989" height="254" alt="Publisher and subscriber for Pose" src="https://github.com/user-attachments/assets/5f1a6b3d-c600-482b-a151-017bb39b0d51" />
+
 
 
 ## Task 2 - Custom messaging
@@ -61,7 +66,7 @@ ros2 pkg create --build-type ament_python custom_pinterface --license Apache-2.0
 - Used the provided publisher/subscriber code examples as a starting point
 - Changed msg type and formatting
 - Added dependencies
-- Ran commands bellow:
+- Ran commands below:
 
 Terminal 1
 ```
@@ -80,7 +85,8 @@ ros2 run custom_pinterface subscriber
 ### Results
 
 - The publisher and subscriber successfully send and receive the Person messages
-![[Publisher and subscriber for Person interface.png|%]]
+<img width="991" height="150" alt="Publisher and subscriber for Person interface" src="https://github.com/user-attachments/assets/afa46831-56e7-4590-8c0b-c1463d2d7851" />
+
 
 
 ## Task 3 - Services
@@ -92,7 +98,7 @@ ___
 - Created `CalculateDistance.srv` service to `custom_interface` package
 - Created server and client nodes to the new package
 - Added dependencies (e.g `geometry_msgs` and `builtin_interfaces` in `CMakeLists.txt`) and entry points
-- Ran commands bellow:
+- Ran commands below:
 
 Terminal 1
 ```
@@ -114,10 +120,12 @@ ros2 run service_example calculate_distance_client
 ### Results
 
 - The server and the client successfully communicate with each other with client receiving the calculated distance
-![[Pasted image 20250907155920.png]]
+<img width="1035" height="117" alt="Pasted image 20250907155920" src="https://github.com/user-attachments/assets/d8d0b6a4-d0aa-4ab5-b4b1-dfcf1a48f274" />
+
 
 - The custom service
-![[Pasted image 20250907160049.png]]
+<img width="254" height="211" alt="Pasted image 20250907160049" src="https://github.com/user-attachments/assets/caa1227f-c6fd-4ca7-9481-b48908cb4b02" />
+
 
 
 ## Task 4 - Parameters
@@ -128,7 +136,7 @@ ___
 - Added parameter deceleration for points as lists to `calculate_distance_client.py`
 - Added parameter gets to the old point variables
 - Added the node and the parameters to the `params.yaml` file which was created according to the guide
-- Ran command below:
+- Ran commands below:
 
 Terminal 1
 ```
@@ -148,7 +156,8 @@ ros2 run service_example calculate_distance_client --ros-args --params-file src/
 ### Results
 
 - The server and the client successfully communicate with each other with client receiving the calculated distance based on the yaml file
-![[Pasted image 20250907155920.png]]
+<img width="1035" height="117" alt="Pasted image 20250907155920" src="https://github.com/user-attachments/assets/f3ec7ff6-fa28-4111-aea7-59758b5d14ee" />
+
 - This was ran with different values in the yaml file to confirm it's indeed reacting to changes
 
 
