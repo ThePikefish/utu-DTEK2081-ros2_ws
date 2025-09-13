@@ -163,3 +163,35 @@ ros2 run service_example calculate_distance_client --ros-args --params-file src/
 
 ## Task 5 - Actions
 ___
+
+### Tasks done
+- Created a file `Countdown.action` in the package custom_inteface/action with the given format, and modify the CMakeLists.txt
+- Created a package called countdown, ros2 pkg create --build-type ament_python countdown --dependencies rclpy custom_interface
+- Created countdown_server.py and countdown_client.py, add code based on the fibonacci examples
+- 
+
+
+Terminal 1
+```
+colcon build
+sb
+
+ros2 run countdown countdown_server
+```
+
+Terminal 2
+```
+sb
+
+ros2 run countdown countdown_client --ros-args -p start_from:=5
+```
+
+### Results
+
+- The server and the client successfully communicate with each other with client send 5 and count down from it
+![System Diagram](report/task5_1.png)
+
+
+
+
+
