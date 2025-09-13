@@ -189,7 +189,7 @@ ros2 run countdown countdown_client --ros-args -p start_from:=5
 ### Results
 
 - The server and the client successfully communicate with each other with client send 5 and count down from it
-![System Diagram](report/task5_1.png)
+![](task5_1.png)
 
 
 
