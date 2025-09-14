@@ -22,6 +22,8 @@ setup(
         'console_scripts': [
             'fibonacci_server = fibonacci.fibonacci_server:main',
             'fibonacci_client = fibonacci.fibonacci_client:main',
+            'fibonacci_server_cancel = fibonacci.fibonacci_server_cancel:main',
+            'fibonacci_client_cancel = fibonacci.fibonacci_client_cancel:main',
         ],
     },
 )
