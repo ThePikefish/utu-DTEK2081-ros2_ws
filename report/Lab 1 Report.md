@@ -170,6 +170,7 @@ ___
 - Created countdown_server.py and countdown_client.py, add code based on the fibonacci examples
 - 
 
+**server-client pair**
 
 Terminal 1
 ```
@@ -179,6 +180,7 @@ sb
 ros2 run countdown countdown_server
 ```
 
+
 Terminal 2
 ```
 sb
@@ -186,14 +188,47 @@ sb
 ros2 run countdown countdown_client --ros-args -p start_from:=5
 ```
 
+**server-client pair that handles the cancellation**
+
+Terminal 1
+```
+colcon build
+sb
+
+ros2 run countdown countdown_server_cancel 
+```
+
+
+Terminal 2
+```
+sb
+
+ros2 run countdown countdown_client_cancel --ros-args -p start_from:=5
+
+ros2 run countdown countdown_client_cancel --ros-args -p start_from:=5 -p cancel_after:=6.0
+
+```
+
+
+
 ### Results
 
+**server-client pair**
 - The server and the client successfully communicate with each other with client send 5 and count down from it
 ![](task5_1.png)
+
+**server-client pair that handles the cancellation (default cancel_after value is 2.0 seconds)**
+
+- It cancelled since it need more time to countdown from 5 to 0.
+![](task5_2a.png)
+
+- If we set the cancel_after value to 10.0 seconds, the countdown was finished, and the cancel was failed.
+![](task5_2b.png)
 
 
 
 - The custom action
+
 ![](new_action.png)
   
 
