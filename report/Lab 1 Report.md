@@ -168,7 +168,7 @@ ___
 - Created a file `Countdown.action` in the package custom_inteface/action with the given format, and modify the CMakeLists.txt
 - Created a package called countdown, ros2 pkg create --build-type ament_python countdown --dependencies rclpy custom_interface
 - Created countdown_server.py and countdown_client.py, add code based on the fibonacci examples
-- 
+- Ran commands below:
 
 **server-client pair**
 
@@ -205,7 +205,7 @@ sb
 
 ros2 run countdown countdown_client_cancel --ros-args -p start_from:=5
 
-ros2 run countdown countdown_client_cancel --ros-args -p start_from:=5 -p cancel_after:=6.0
+ros2 run countdown countdown_client_cancel --ros-args -p start_from:=5 -p cancel_after:=10.0
 
 ```
 
