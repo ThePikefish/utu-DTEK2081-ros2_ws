@@ -51,6 +51,18 @@ ros2 topic info /Pose
 
 <img width="989" height="254" alt="Publisher and subscriber for Pose" src="https://github.com/user-attachments/assets/5f1a6b3d-c600-482b-a151-017bb39b0d51" />
 
+### OPTIONAL 1:
+- Explain what would be the QoS parameters for critical data in the system?
+	- Reliability Policy: For critical data, use Reliable to guaranteed delivery.
+	- Durability Policy:
+ 	- History Policy: KEEP_LAST
+  	- depth: It can use a big enough number
+
+- What about live data?
+
+- What type of data would it make sense to use Transient Local with?
+Transient local: means that when a new subscriber connects, it will receive a history of messages that
+the publisher has stored.static state, such as map or system configuration.
 
 
 ## Task 2 - Custom messaging
@@ -86,6 +98,8 @@ ros2 run custom_pinterface subscriber
 
 - The publisher and subscriber successfully send and receive the Person messages
 <img width="991" height="150" alt="Publisher and subscriber for Person interface" src="https://github.com/user-attachments/assets/afa46831-56e7-4590-8c0b-c1463d2d7851" />
+
+### OPTIONAL 2: add a Header message to the <Message_name>.msg
 
 
 
