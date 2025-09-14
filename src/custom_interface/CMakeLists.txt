@@ -21,7 +21,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Person.msg" 
   "srv/AddThreeInts.srv" 
   "srv/CalculateDistance.srv" 
-  "action/Fibonacci.action" 
+  "action/Fibonacci.action"
+  "action/Countdown.action"
   DEPENDENCIES geometry_msgs builtin_interfaces action_msgs 
 )
 
