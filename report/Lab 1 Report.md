@@ -231,6 +231,23 @@ ros2 run countdown countdown_client_cancel --ros-args -p start_from:=5 -p cancel
 
 ![](new_action.png)
   
+## Task 6 - Launch Files
+___
 
+### Tasks done
+- Created a package called ws_bringup
+- Modified the `setup.py` and `package.xml` file
+- Created the launch file `task3.launch.py` based on the example
+- Ran commands below:
+```
+colcon build
+sb
+
+ros2 launch ws_bringup task3.launch.py 
+```
+
+### Results
+In the params.yaml, point1: [ 0.0, 0.0 ], point2: [ 3.0, 0.0 ]
+![](task6.png)
 
 
