@@ -53,16 +53,20 @@ ros2 topic info /Pose
 
 ### OPTIONAL 1:
 - Explain what would be the QoS parameters for critical data in the system?
-	- Reliability Policy: For critical data, use Reliable to guaranteed delivery.
-	- Durability Policy:
- 	- History Policy: KEEP_LAST
-  	- depth: It can use a big enough number
+	- Reliability Policy: For critical data, choose Reliable to guaranteed delivery.
+	- Durability Policy: Choose Transient local so that a new subscriber can still receive the stored messages.
+ 	- History Policy: If we need to store everything, we use Keep All. But in real life, such as for high-rate sensors, it’s better to use Keep Last with a large enough depth. Since the buffer is limited, and the latest data is more important.
+  	- depth: A large enough depth.
 
 - What about live data?
+	- Reliability Policy: Choose Best effort since the latest messages are important, and old data can be lost.
+	- Durability Policy: Choose Volatile since the latest messages matter.
+	- History Policy: Choose Keep Last to store only a small number of recent messages.
+	- Depth: A small number, sometimes 1 is enough.
 
 - What type of data would it make sense to use Transient Local with?
-Transient local: means that when a new subscriber connects, it will receive a history of messages that
-the publisher has stored.static state, such as map or system configuration.
+Transient Local ensures that when a new subscriber connects, it will receive a history of stored messages. This is useful for relatively static or big-picture information, such as maps or system and robot configuration. It is important for every node, and even if a node joins late, it can still get this information.
+
 
 
 ## Task 2 - Custom messaging
