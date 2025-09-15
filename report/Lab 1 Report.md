@@ -212,8 +212,9 @@ ros2 run service_example calculate_distance_client --ros-args --params-file src/
 ### Results
 
 - The server and the client successfully communicate with each other with client receiving the calculated distance based on the yaml file
-<img width="1035" height="117" alt="Pasted image 20250907155920" src="https://github.com/user-attachments/assets/f3ec7ff6-fa28-4111-aea7-59758b5d14ee" />
+<!--<img width="1035" height="117" alt="Pasted image 20250907155920" src="https://github.com/user-attachments/assets/f3ec7ff6-fa28-4111-aea7-59758b5d14ee" />-->
 
+![](task4.png)
 - This was ran with different values in the yaml file to confirm it's indeed reacting to changes
 
 
@@ -283,7 +284,7 @@ ros2 run countdown countdown_client_cancel --ros-args -p start_from:=5 -p cancel
 
 
 
-- The custom action
+- The custom action.
 
 ![](new_action.png)
   
@@ -304,7 +305,7 @@ ros2 launch ws_bringup task3.launch.py
 
 ### Results
 
-In the params.yaml, point1: [ 0.0, 0.0 ], point2: [ 3.0, 0.0 ]
+In the params.yaml, point1: [ 0.0, 0.0 ], point2: [ 3.0, 0.0 ].
 ![](task6.png)
 
 
