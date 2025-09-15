@@ -104,6 +104,34 @@ ros2 run custom_pinterface subscriber
 <img width="991" height="150" alt="Publisher and subscriber for Person interface" src="https://github.com/user-attachments/assets/afa46831-56e7-4590-8c0b-c1463d2d7851" />
 
 ### OPTIONAL 2: add a Header message to the <Message_name>.msg
+#### Tasks done
+- Added `std_msgs/Header header` on the top of `custom_interface/msg/Person.msg`
+- Added the following to the publisher file
+```
+msg.header.stamp = self.get_clock().now().to_msg()
+msg.header.frame_id = "map"
+```
+
+- Ran commands below:
+
+Terminal 1
+```
+colcon build
+sb
+
+ros2 run custom_pinterface publisher
+```
+
+Terminal 2
+```
+sb
+
+ros2 run custom_pinterface subscriber
+```
+
+#### Results
+In the params.yaml, point1: [ 0.0, 0.0 ], point2: [ 3.0, 0.0 ]
+![](optional2a.png)
 
 
 
