@@ -23,7 +23,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/CalculateDistance.srv" 
   "action/Fibonacci.action"
   "action/Countdown.action"
-  DEPENDENCIES geometry_msgs builtin_interfaces action_msgs 
+  DEPENDENCIES std_msgs geometry_msgs builtin_interfaces action_msgs 
 )
 
 if(BUILD_TESTING)

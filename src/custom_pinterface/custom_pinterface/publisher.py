@@ -32,6 +32,9 @@ class MinimalPublisher(Node):
 
     def timer_callback(self):
         msg = Person()
+        
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.header.frame_id = "map"
 
         msg.name = "Hauki"
         msg.age = 18

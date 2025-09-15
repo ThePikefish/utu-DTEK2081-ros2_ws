@@ -3,6 +3,7 @@ from rclpy.node import Node
 from std_msgs.msg import String
 from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy, HistoryPolicy
 from custom_interface.msg import Person
+from rclpy.time import Time
 
 class MinimalSubscriber(Node):
 
@@ -24,10 +25,20 @@ class MinimalSubscriber(Node):
             self.qos_profile)
         
         self.subscription
+        
+        self.prev = None
 
 
     def listener_callback(self, msg):
         self.get_logger().info(f'Received Person: Name= {msg.name}, Age= {msg.age}, Student= {msg.is_student}')
+        
+        current_time = Time.from_msg(msg.header.stamp)
+        if self.prev is not None:
+            dt = (current_time - self.prev).nanoseconds * 1e-9 
+            freq = 1.0 / dt
+            self.get_logger().info(f"dt={dt:.3f}s -> freq={freq:.2f} Hz")
+        self.prev = current_time
+
 
 
 def main(args=None):
