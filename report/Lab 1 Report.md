@@ -308,4 +308,16 @@ ros2 launch ws_bringup task3.launch.py
 In the params.yaml, point1: [ 0.0, 0.0 ], point2: [ 3.0, 0.0 ].
 ![](task6.png)
 
+### Optional 3: Add support for separate terminals
+#### Tasks done
+- Added parameter launch argument option for opening in separate terminals to `task3.launch.py`
+- Added conditions and Exectue processes for opening in separate terminals
+
+Used by specifying launch argument `use_terminals:=1`:
+```
+colcon build
+sb
+
+ros2 launch ws_bringup task3.launch.py use_terminals:=1
+```
 
