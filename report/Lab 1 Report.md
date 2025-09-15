@@ -65,6 +65,7 @@ ros2 topic info /Pose
 	- Depth: A small number, sometimes 1 is enough.
 
 - What type of data would it make sense to use Transient Local with?
+
 Transient Local ensures that when a new subscriber connects, it will receive a history of stored messages. This is useful for relatively static or big-picture information, such as maps or system and robot configuration. It is important for every node, and even if a node joins late, it can still get this information.
 
 
@@ -111,7 +112,7 @@ ros2 run custom_pinterface subscriber
 msg.header.stamp = self.get_clock().now().to_msg()
 msg.header.frame_id = "map"
 ```
-
+- In the subscriber file, get the publisher time `current_time = Time.from_msg(msg.header.stamp)` and calculate the time span and frequence
 - Ran commands below:
 
 Terminal 1
@@ -129,10 +130,19 @@ sb
 ros2 run custom_pinterface subscriber
 ```
 
-#### Results
-In the params.yaml, point1: [ 0.0, 0.0 ], point2: [ 3.0, 0.0 ]
-![](optional2a.png)
+Terminal 3
+```
+sb
 
+ros2 topic hz /PersonTopic
+```
+
+
+
+#### Results
+In the publisher file, timer_period = 1, and we can see from the result that frequency is 1
+![](optional2a.png)
+![](optional2b.png)
 
 
 ## Task 3 - Services
@@ -293,6 +303,7 @@ ros2 launch ws_bringup task3.launch.py
 ```
 
 ### Results
+
 In the params.yaml, point1: [ 0.0, 0.0 ], point2: [ 3.0, 0.0 ]
 ![](task6.png)
 
