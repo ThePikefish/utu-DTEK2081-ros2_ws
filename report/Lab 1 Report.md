@@ -223,8 +223,9 @@ ___
 
 ### Tasks done
 - Created a file `Countdown.action` in the package custom_inteface/action with the given format, and modify the CMakeLists.txt
-- Created a package called countdown, ros2 pkg create --build-type ament_python countdown --dependencies rclpy custom_interface
+- Created a package called countdown, `ros2 pkg create --build-type ament_python countdown --dependencies rclpy custom_interface`
 - Created countdown_server.py and countdown_client.py, add code based on the fibonacci examples
+- Created countdown_server_cancel.py and countdown_client_cancel.py for the cancellation based on the examples
 - Ran commands below:
 
 **server-client pair**
