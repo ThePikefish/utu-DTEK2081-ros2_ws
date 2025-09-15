@@ -62,7 +62,7 @@ ros2 topic info /Pose
 	- Reliability Policy: Choose Best effort since the latest messages are important, and old data can be lost.
 	- Durability Policy: Choose Volatile since the latest messages matter.
 	- History Policy: Choose Keep Last to store only a small number of recent messages.
-	- Depth: A small number, sometimes 1 is enough.
+	- depth: A small number, sometimes 1 is enough.
 
 - What type of data would it make sense to use Transient Local with?
 
@@ -104,7 +104,7 @@ ros2 run custom_pinterface subscriber
 - The publisher and subscriber successfully send and receive the Person messages
 <img width="991" height="150" alt="Publisher and subscriber for Person interface" src="https://github.com/user-attachments/assets/afa46831-56e7-4590-8c0b-c1463d2d7851" />
 
-### OPTIONAL 2: add a Header message to the <Message_name>.msg
+### OPTIONAL 2: add a Header message to the Person.msg
 #### Tasks done
 - Added `std_msgs/Header header` on the top of `custom_interface/msg/Person.msg`
 - Added the following to the publisher file
