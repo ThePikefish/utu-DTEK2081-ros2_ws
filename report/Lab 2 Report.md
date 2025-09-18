@@ -1,4 +1,4 @@
-## Task 1
+## Task 1 - rqt_graph
 - [x] Installed required packages
 - [x] Ran commands below in the workspace:
 
@@ -35,3 +35,22 @@ ros2 run rqt_graph rqt_graph
 - [x] Move the turtlebot from `turtle_teleop_key` node
   - The position gets plotted
   - <img width="831" height="673" alt="image" src="https://github.com/user-attachments/assets/0f0a130d-52f2-4db6-a098-030c6dcdfcd4" />
+
+
+## Task 2 - rviz
+- [x] Previous example
+- [x] In *rviz* select `base_link` for fixed frame
+- [x] Add *Odometry*, *LaserScan*, *Camera* and *TF* and play with their parameters.
+  - The *Odometry* shows an arrow on the robot. When the fixed frame is set to `odom`, it spawns multiple arrows that mark the robot's path. The visualisation can be easily configured, e.g. the frequency, amount and size.
+  - The *LaserScan* shows a visualisation of the lidar sensor as shapes whose properties can be adjusted, e.g. the delay, size, shape and color.
+  - The *TF* shows the transformations of the robot's frames (mainly the different parts of the robot). There, you can, for example, toggle some parts off and show their names to make the visualisation clearer.
+  - The *Camera* gives a first-person view of the robot's camera with a few basic view settings.
+- [x] Move the robot around the map with the `ros2 run turtlebot3_teleop teleop_keyboard` in another terminal.
+  - First, this command gave an error about the model, but after exporting the model (and sourcing ROS) again according to the guide, it worked.
+  - <img width="342" height="257" alt="image" src="https://github.com/user-attachments/assets/a05719c5-214d-4b63-ba6d-e1b343424d17" />
+  - <img width="340" height="251" alt="image" src="https://github.com/user-attachments/assets/d3fa6018-c4cf-48e7-9733-f97bddc9df10" />
+- [x] Changed parameters:
+  - The *Covariance* had to be turned off on the *Odometry* so it doesn't block the view.
+  - The fixed frame had to be set from `base_link` to `odom` for visualising the path of the robot.
+- [x] Difference with *burger* and *waffle_pi*:
+  - The *burger* did not seem to have a camera signal, but *waffle_pi* had it. Otherwise, the other visualisations and controls seemed to work similarly on both of them.
