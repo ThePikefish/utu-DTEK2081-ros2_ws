@@ -54,3 +54,39 @@ ros2 run rqt_graph rqt_graph
   - The fixed frame had to be set from `base_link` to `odom` for visualising the path of the robot.
 - [x] Difference with *burger* and *waffle_pi*:
   - The *burger* did not seem to have a camera signal, but *waffle_pi* had it. Otherwise, the other visualisations and controls seemed to work similarly on both of them.
+  - 
+
+## Task 3 - TF2
+- [x] Previous example. And after sourcing, run `ros2 run tutorial_pkg tf_broadcaster` on the background. Also, the run commands below are running simultaneously on different terminals.
+- [x] Create a new package with `ros2 pkg create --build-type ament_python task3_pkg`
+- [x] Static transformation script: *tf_static_broadcaster.py*
+  - [x] Use the broadcaster example from the guide as a starting point and modify the code for a static transform
+  - [x] Set static transform value to x and z
+  - [x] After sourcing, run with `ros2 run task3_pkg tf_static_broadcaster`
+  - (Verification in the final picture)
+- [x] Dynamic scanner broadcaster script: *tf_broadcast_scanner.py*
+  - [x] Use the broadcaster example from the guide as a starting point
+  - [x] Set oscillation frequency
+  - [x] Set the oscillation movement using a sin wave (and convert the oscillation to angular) `math.sin(2 * math.pi * self.frequency * t)`
+  - [x] After sourcing, run with `ros2 run task3_pkg tf_broadcast_scanner`
+  - (Verification in the final picture)
+- [x] Listener for transforms: *tf_listener_transform*
+  - [x] Use the listener example from the guide as a starting point
+  - [x] Track last position and time
+  - [x] Calculate distance with `math.sqrt(x**2 + y**2 + z**2)`
+  - [x] Get delta distance and time and calculate speed with delta distance / delta time
+  - [x] After sourcing, run with `ros2 run task3_pkg tf_listener_transform`
+  - <img width="918" height="183" alt="image" src="https://github.com/user-attachments/assets/5d71421a-0809-408a-8c1e-4c7c7be10f0b" />
+- [x] Listener for revolutions: *tf_listener_revolutions*
+  - [x] Track last yaw and revolutions
+  - [x] Get the delta of yaw and take into account it going around
+  - [x] Calculate total yaw and revolutions from that
+  - [x] After sourcing, run with `ros2 run task3_pkg tf_listener_transform`
+  - It only notifies on new revolutions, so you have to wait for  a revolution to pass for logs
+  - <img width="662" height="176" alt="image" src="https://github.com/user-attachments/assets/5d821a7a-6ad3-487c-9a13-15fefa6624ac" />
+
+- Result of `ros2 run rqt_tf_tree rqt_tf_tree`:
+  - <img width="778" height="464" alt="image" src="https://github.com/user-attachments/assets/8254f412-0a1c-42da-810e-782a8d676749" />
+
+- Rviz2 verification:
+  - <img width="484" height="390" alt="image" src="https://github.com/user-attachments/assets/44a447ad-310d-40b0-8da7-f8f9c4431371" /> (it spins and the scanner oscillates)
