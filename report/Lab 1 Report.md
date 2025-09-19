@@ -62,7 +62,7 @@ ros2 topic info /Pose
 	- Reliability Policy: Choose Best effort since the latest messages are important, and old data can be lost.
 	- Durability Policy: Choose Volatile since the latest messages matter.
 	- History Policy: Choose Keep Last to store only a small number of recent messages.
-	- Depth: A small number, sometimes 1 is enough.
+	- depth: A small number, sometimes 1 is enough.
 
 - What type of data would it make sense to use Transient Local with?
 
@@ -104,7 +104,7 @@ ros2 run custom_pinterface subscriber
 - The publisher and subscriber successfully send and receive the Person messages
 <img width="991" height="150" alt="Publisher and subscriber for Person interface" src="https://github.com/user-attachments/assets/afa46831-56e7-4590-8c0b-c1463d2d7851" />
 
-### OPTIONAL 2: add a Header message to the <Message_name>.msg
+### OPTIONAL 2: add a Header message to the Person.msg
 #### Tasks done
 - Added `std_msgs/Header header` on the top of `custom_interface/msg/Person.msg`
 - Added the following to the publisher file
@@ -223,8 +223,9 @@ ___
 
 ### Tasks done
 - Created a file `Countdown.action` in the package custom_inteface/action with the given format, and modify the CMakeLists.txt
-- Created a package called countdown, ros2 pkg create --build-type ament_python countdown --dependencies rclpy custom_interface
+- Created a package called countdown, `ros2 pkg create --build-type ament_python countdown --dependencies rclpy custom_interface`
 - Created countdown_server.py and countdown_client.py, add code based on the fibonacci examples
+- Created countdown_server_cancel.py and countdown_client_cancel.py for the cancellation based on the examples
 - Ran commands below:
 
 **server-client pair**
@@ -308,4 +309,16 @@ ros2 launch ws_bringup task3.launch.py
 In the params.yaml, point1: [ 0.0, 0.0 ], point2: [ 3.0, 0.0 ].
 ![](task6.png)
 
+### Optional 3: Add support for separate terminals
+#### Tasks done
+- Added parameter launch argument option for opening in separate terminals to `task3.launch.py`
+- Added conditions and Exectue processes for opening in separate terminals
+
+Used by specifying launch argument `use_terminals:=1`:
+```
+colcon build
+sb
+
+ros2 launch ws_bringup task3.launch.py use_terminals:=1
+```
 
