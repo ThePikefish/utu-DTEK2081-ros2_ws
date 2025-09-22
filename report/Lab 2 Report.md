@@ -90,3 +90,55 @@ ros2 run rqt_graph rqt_graph
 
 - Rviz2 verification:
   - <img width="484" height="390" alt="image" src="https://github.com/user-attachments/assets/44a447ad-310d-40b0-8da7-f8f9c4431371" /> (it spins and the scanner oscillates)
+
+## Task 4 - Gazebo
+- [x] Used the tutorial example as a basis
+  - [x] Created `gazebo_example` package by running `ros2 pkg create --build-type ament_python gazebo_example --license Apache-2.0 --dependencies launch launch_ros gazebo_ros`
+  - [x] Created a `launch` folder and a `worlds` folder
+  - [x] Modified `setup.py` and `package.xml`
+- [x] Used Gazebo Building Editor to create a world `lab2_task4.world` and placed it in the `worlds` folder
+- [x] Added and adapted the example launch ﬁle `gazebo_example.launch.py` in the launch folder
+- [x] Saved the rviz conﬁguration as `lab2task4.rviz`
+- [x] Ran commands below in the workspace:
+
+First in every Terminal
+```
+source /usr/share/gazebo/setup.sh
+source /opt/ros/humble/setup.bash
+
+export TURTLEBOT3_MODEL=waffle_pi
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+```
+
+After `colcon build --packages-select gazebo_example`
+
+Terminal 1 (Spawn robot in default positions):
+```
+source install/setup.bash
+ros2 launch gazebo_example gazebo_example.launch.py use_sim_time:=true
+```
+
+![](report/lab2task4b.png)
+
+Or Terminal 1 (Spawn robot in positions x_pose:=2.0 y_pose:=1.0):
+
+```
+ros2 launch gazebo_example gazebo_example.launch.py use_sim_time:=true x_pose:=2.0 y_pose:=1.0
+```
+![](report/lab2task4c.png)
+
+Terminal 2:
+```
+source install/setup.bash
+
+ros2 run turtlesim turtle_teleop_key
+```
+Terminal 3:
+```
+source install/setup.bash
+
+ros2 run rqt_graph rqt_graph
+```
+
+
+
