@@ -142,3 +142,39 @@ ros2 run rviz2 rviz2 -d lab2task4.rviz
 ![](lab2task4rviz.png)
 
 ## Task 5 - Rosbags
+- [x] Ran commands below in the workspace:
+
+Terminal 1:
+```
+ros2 launch gazebo_example gazebo_example.launch.py
+```
+
+Terminal 2:
+```
+ros2 run turtlebot3_teleop teleop_keyboard
+```
+
+Terminal 3:
+```
+timeout 10s ros2 bag record -a -o group2_rosbag_10sec
+timeout 30s ros2 bag record -a -o group2_rosbag_30sec
+
+```
+
+- [x] Ran `ros2 bag info /home/ws/group2_rosbag_10sec` and `ros2 bag info /home/ws/group2_rosbag_30sec`
+
+
+![](lab2task5.png)
+
+From the result: 
+- group2_rosbag_10sec (around  9.52 s,  3709 messages, 243.0 MiB)
+- group2_rosbag_30sec (around 29.55 s, 12265 messages, 806.3 MiB)
+
+The 30-second rosbag is about 3.1 times longer, and both the message count and bag size are about 3.3 times larger. This makes sense since most topics publish at approximately fixed rates, so the total messages and bag size scale roughly with duration.
+
+
+
+
+
+
+
