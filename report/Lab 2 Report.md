@@ -96,12 +96,12 @@ ros2 run rqt_graph rqt_graph
   - [x] Created `gazebo_example` package by running `ros2 pkg create --build-type ament_python gazebo_example --license Apache-2.0 --dependencies launch launch_ros gazebo_ros`
   - [x] Created a `launch` folder and a `worlds` folder
   - [x] Modified `setup.py` and `package.xml`
-- [x] Used Gazebo Building Editor to create a world `lab2_task4.world` and placed it in the `worlds` folder
-- [x] Added and adapted the example launch ﬁle `gazebo_example.launch.py` in the launch folder
+- [x] Used Gazebo Building Editor to create a world `lab2_task4.world` and placed it in the `worlds` folder![](lab2task4.png)
+- [x] Added and adapted the example launch ﬁle `gazebo_example.launch.py` in the `launch` folder
 - [x] Saved the rviz conﬁguration as `lab2task4.rviz`
 - [x] Ran commands below in the workspace:
 
-First in every Terminal
+First in every Terminal:
 ```
 source /usr/share/gazebo/setup.sh
 source /opt/ros/humble/setup.bash
@@ -118,27 +118,27 @@ source install/setup.bash
 ros2 launch gazebo_example gazebo_example.launch.py use_sim_time:=true
 ```
 
-![](report/lab2task4b.png)
+![](lab2task4b.png)
 
 Or Terminal 1 (Spawn robot in positions x_pose:=2.0 y_pose:=1.0):
 
 ```
 ros2 launch gazebo_example gazebo_example.launch.py use_sim_time:=true x_pose:=2.0 y_pose:=1.0
 ```
-![](report/lab2task4c.png)
+![](lab2task4c.png)
 
 Terminal 2:
 ```
 source install/setup.bash
-
-ros2 run turtlesim turtle_teleop_key
+ros2 run turtlebot3_teleop teleop_keyboard
 ```
-Terminal 3:
+![](lab2task4d.png)
+
+Terminal 3 (Launch the saved rviz):
 ```
 source install/setup.bash
-
-ros2 run rqt_graph rqt_graph
+ros2 run rviz2 rviz2 -d lab2task4.rviz
 ```
+![](lab2task4rviz.png)
 
-
-
+## Task 5 - Rosbags
