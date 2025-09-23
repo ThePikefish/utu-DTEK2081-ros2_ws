@@ -81,7 +81,7 @@ ros2 run rqt_graph rqt_graph
   - [x] Track last yaw and revolutions
   - [x] Get the delta of yaw and take into account it going around
   - [x] Calculate total yaw and revolutions from that
-  - [x] After sourcing, run with `ros2 run task3_pkg tf_listener_transform`
+  - [x] After sourcing, run with `ros2 run task3_pkg tf_listener_revolutions`
   - It only notifies on new revolutions, so you have to wait for  a revolution to pass for logs
   - <img width="662" height="176" alt="image" src="https://github.com/user-attachments/assets/5d821a7a-6ad3-487c-9a13-15fefa6624ac" />
 
@@ -96,7 +96,8 @@ ros2 run rqt_graph rqt_graph
   - [x] Created `gazebo_example` package by running `ros2 pkg create --build-type ament_python gazebo_example --license Apache-2.0 --dependencies launch launch_ros gazebo_ros`
   - [x] Created a `launch` folder and a `worlds` folder
   - [x] Modified `setup.py` and `package.xml`
-- [x] Used Gazebo Building Editor to create a world `lab2_task4.world` and placed it in the `worlds` folder![](lab2task4.png)
+- [x] Used Gazebo Building Editor to create a world `lab2_task4.world` and placed it in the `worlds` folder<img width="826" height="762" alt="lab2task4" src="https://github.com/user-attachments/assets/26e323a8-85fc-4e27-9805-447a2102e986" />
+
 - [x] Added and adapted the example launch ﬁle `gazebo_example.launch.py` in the `launch` folder
 - [x] Saved the rviz conﬁguration as `lab2task4.rviz`
 - [x] Ran commands below in the workspace:
@@ -118,28 +119,33 @@ source install/setup.bash
 ros2 launch gazebo_example gazebo_example.launch.py use_sim_time:=true
 ```
 
-![](lab2task4b.png)
+<img width="702" height="722" alt="lab2task4b" src="https://github.com/user-attachments/assets/b2d0ca66-27c5-421c-b038-79ee95fc1aeb" />
+
 
 Or Terminal 1 (Spawn robot in positions x_pose:=2.0 y_pose:=1.0):
 
 ```
 ros2 launch gazebo_example gazebo_example.launch.py use_sim_time:=true x_pose:=2.0 y_pose:=1.0
 ```
-![](lab2task4c.png)
+
+<img width="659" height="600" alt="lab2task4c" src="https://github.com/user-attachments/assets/1565ae31-9f10-4836-81ec-ad1ef6928b67" />
+
 
 Terminal 2:
 ```
 source install/setup.bash
 ros2 run turtlebot3_teleop teleop_keyboard
 ```
-![](lab2task4d.png)
+<img width="736" height="301" alt="lab2task4d" src="https://github.com/user-attachments/assets/1a79bf7b-e6be-4fc0-ade4-ebba634abfee" />
+
 
 Terminal 3 (Launch the saved rviz):
 ```
 source install/setup.bash
 ros2 run rviz2 rviz2 -d lab2task4.rviz
 ```
-![](lab2task4rviz.png)
+<img width="797" height="508" alt="lab2task4rviz" src="https://github.com/user-attachments/assets/307a2d36-5385-40ea-a7b3-7c7b80539562" />
+
 
 ## Task 5 - Rosbags
 - [x] Ran commands below in the workspace:
@@ -158,13 +164,13 @@ Terminal 3:
 ```
 timeout 10s ros2 bag record -a -o group2_rosbag_10sec
 timeout 30s ros2 bag record -a -o group2_rosbag_30sec
-
 ```
 
 - [x] Ran `ros2 bag info /home/ws/group2_rosbag_10sec` and `ros2 bag info /home/ws/group2_rosbag_30sec`
 
 
-![](lab2task5.png)
+<img width="1404" height="309" alt="lab2task5" src="https://github.com/user-attachments/assets/6da730d3-8737-472c-a012-8a3f3ad978e9" />
+
 
 From the result: 
 - group2_rosbag_10sec (around  9.52 s,  3709 messages, 243.0 MiB)
@@ -172,9 +178,49 @@ From the result:
 
 The 30-second rosbag is about 3.1 times longer, and both the message count and bag size are about 3.3 times larger. This makes sense since most topics publish at approximately fixed rates, so the total messages and bag size scale roughly with duration.
 
+- [x] Ran `ros2 bag record -a -o group2_rosbag` in terminal 3
+- [x] Ran commands below in the workspace:
+
+Terminal 1:
+```
+ros2 launch gazebo_example gazebo_example.launch.py
+```
+
+Terminal 2:
+```
+ros2 bag play group2_rosbag/
+```
+
+The robot in Gazebo will move as it did when it was recorded. There are warnings
+<img width="972" height="151" alt="warning" src="https://github.com/user-attachments/assets/3fb9c010-2820-425b-a406-2c4b48435897" />
+
+This is because there is a /clock conflict. Two time sources (Gazebo and the rosbag) are both publishing /clock.
+<img width="576" height="478" alt="warning2" src="https://github.com/user-attachments/assets/ccc1ba3c-610b-4e6f-ac18-a262051ad560" />
+
+- [x] Ran `ros2 bag play group2_rosbag/ --topics /cmd_vel` in terminal 3
+The robot follows the recorded pattern without warnings. This is because rosbag no longer publishes the /clock topic. rosbag play only /cmd_vel topic.
+
+- [x] Ran `ros2 bag play group2_rosbag/ --start-offset 8.0 --topics /cmd_vel` in terminal 3
+If we start the rosbag from the middle, the robot begins executing the first command after that point. For group2_rosbag, it immediately turns left rather than going forward.
+
+- [x] Played the rosbag at Double speed and record new rosbags
+
+Terminal 1:
+```
+ros2 bag play group2_rosbag --rate 2.0
+```
+
+Terminal 2:
+```
+ros2 bag record -a -o /home/ws/group2_rosbag_2x
+```
+- [x] Ran `ros2 bag info /home/ws/group2_rosbag` and `ros2 bag info /home/ws/group2_rosbag_2x/`
+<img width="1424" height="318" alt="2x" src="https://github.com/user-attachments/assets/045994d9-504a-4ae1-b9d5-6c81d3d44caf" />
+The double-speed rosbag is 7.4 seconds (about half of the original 16.7 seconds). The message count and bag size are roughly the same because the same set of topics was recorded. Small differences may be due to missing a few first or last messages.
 
 
-
-
+- [x] Ran group2_rosbag without gazebo running, and launch Rviz2
+<img width="1004" height="669" alt="final" src="https://github.com/user-attachments/assets/02a13d46-c470-451d-8e8f-cf62e28b153f" />
+All the data (TF, image, laser) can be visualized.
 
 
