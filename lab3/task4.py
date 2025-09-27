@@ -20,6 +20,7 @@ import time
 class ImageBagProcessor(Node):
     def __init__(self):
         super().__init__('image_bag_processor')
+        topic_name = '/image_raw'
 
         self.bridge = CvBridge()
         
@@ -34,8 +35,16 @@ class ImageBagProcessor(Node):
             reliability=QoSReliabilityPolicy.BEST_EFFORT  # Set to best effort
         )
         
-        # TODO: Create subscribers for EITHER compressed and uncompressed images
+        # TODO: (DONE) Create subscribers for EITHER compressed and uncompressed images
         # Hint: self.create_subscription()
+
+        self.subscription = self.create_subscription(
+            Image,
+            topic_name,
+            self.image_callback,
+            qos)
+        
+        self.subscription
         
         self.processed_count = 0
 
@@ -43,6 +52,7 @@ class ImageBagProcessor(Node):
 
 
     # USE ONLY ONE OF THE CALL BACKS DEPENDING ON THE TOPIC TYPE
+    # (Using not compressed as there doesn't seem to be a compressed topic in the rosbag)
     
     # -----------------------------
     # Callbacks 
@@ -50,13 +60,13 @@ class ImageBagProcessor(Node):
     def compressed_image_callback(self, msg):
         """Process compressed image messages"""
         try:
-            # TODO: Convert ROS compressed image to OpenCV (BGR8)
+            # TODO: (DONE) Convert ROS compressed image to OpenCV (BGR8)
             # Hint: self.bridge.compressed_imgmsg_to_cv2(msg, "bgr8")
-            cv_image = None
+            cv_image = self.bridge.compressed_imgmsg_to_cv2(msg, "bgr8")
 
             self.compressed_count += 1
             
-            # TODO: Process the image
+            # TODO: (DONE) Process the image
             processed = self.process_cv_image(cv_image)
             
             # Display every 5th frame
@@ -68,16 +78,17 @@ class ImageBagProcessor(Node):
         except Exception as e:
             self.get_logger().error(f'Error processing compressed image: {e}')
     
+    # Using this
     def image_callback(self, msg):
         """Process raw image messages"""
         try:
-            # TODO: Convert ROS raw image to OpenCV (BGR8)
+            # TODO: (DONE) Convert ROS raw image to OpenCV (BGR8)
             # Hint: self.bridge.imgmsg_to_cv2(msg, "bgr8")
-            cv_image = None
+            cv_image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
 
             self.processed_count += 1
             
-            # TODO: Process the image
+            # TODO: (DONE) Process the image
             processed = self.process_cv_image(cv_image)
             
             # Display every 5th frame
@@ -106,18 +117,31 @@ class ImageBagProcessor(Node):
         # CHOSE WHICH ONE YOU ARE USING RGB OR HSV
 
         # TODO: Apply RGB filters
-        rgb_results = self.apply_rgb_filters(frame)
+        #rgb_results = self.apply_rgb_filters(frame)
 
-        # TODO: Apply HSV filters
+        # TODO: (DONE) Apply HSV filters
         hsv_results = self.apply_hsv_filters(frame)
 
         # TODO: Annotate the original image with text
         original = frame.copy()
+        cv2.putText(original, text=f'Original', org=(20, 20), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1, color=(255, 255, 255), thickness=1)
 
-        # TODO: Choose which filtered images to display in the grid
-        # TODO: 2 x 2 grid display of original and 3 filtered images
+        # TODO: (DONE) Choose which filtered images to display in the grid
+
+        red = hsv_results['red']['filtered']
+        green = hsv_results['green']['filtered']
+        blue = hsv_results['blue']['filtered']
+
+        cv2.putText(red, text=f'Red filter', org=(20, 20), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1, color=(255, 255, 255), thickness=1)
+        cv2.putText(green, text=f'Green filter', org=(20, 20), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1, color=(255, 255, 255), thickness=1)
+        cv2.putText(blue, text=f'Blue filter', org=(20, 20), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1, color=(255, 255, 255), thickness=1)
+
+        
+        # TODO: (DONE) 2 x 2 grid display of original and 3 filtered images
         # Hint: np.hstack(image1, image2)
-        grid = None
+        top = np.hstack((original, red))
+        bottom = np.hstack((green, blue))
+        grid = np.vstack((top, bottom))
         
         return grid
     
@@ -141,27 +165,46 @@ class ImageBagProcessor(Node):
         
         return results
 
-
+    # Using this
     def apply_hsv_filters(self, image):
         """Apply HSV color filtering"""
-        # TODO: Convert image from BGR to HSV using cv2.cvtColor()
-        hsv = None
+        # TODO: (DONE) Convert image from BGR to HSV using cv2.cvtColor()
+        hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
-        # TODO: Define HSV ranges for red, green, and blue
+        # TODO: (DONE) Define HSV ranges for red, green, and blue
         # Hint: Red requires TWO ranges (0–10 and 170–180 hue)
-        ranges = {}
+        ranges = {
+            'red': [
+                ([0, 100, 50], [10, 255, 255]),    # low reds
+                ([170, 50, 10], [180, 255, 255])  # high reds
+            ],
+            'green': [
+                ([40, 50, 50], [86, 255, 255])
+            ],
+            'blue': [
+                ([95, 50, 50], [126, 255, 255])
+            ]
+        }
 
         results = {}
         for color, bounds_list in ranges.items():
             mask = None
             for lower, upper in bounds_list:
-                # TODO: Convert lower/upper to NumPy arrays
-                # TODO: Create mask using cv2.inRange()
-                # TODO: Combine masks using cv2.bitwise_or()
+                # TODO: (DONE) Convert lower/upper to NumPy arrays
+                # TODO: (DONE) Create mask using cv2.inRange()
+                # TODO: (DONE) Combine masks using cv2.bitwise_or()
+                lower_np = np.array(lower)
+                upper_np = np.array(upper)
+
+                new_mask = cv2.inRange(hsv, lower_np, upper_np)
+                if mask is None:
+                    mask = new_mask
+                else:
+                    mask = cv2.bitwise_or(mask, new_mask)
                 pass
             
             # TODO: Extract the color region using cv2.bitwise_and()
-            filtered = image
+            filtered = cv2.bitwise_and(image, image, mask=mask)
             results[color] = {'mask': mask, 'filtered': filtered}
         
         return results
