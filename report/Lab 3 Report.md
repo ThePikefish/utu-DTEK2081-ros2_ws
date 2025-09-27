@@ -102,3 +102,28 @@ Results:
 <img width="1288" height="903" alt="image" src="https://github.com/user-attachments/assets/a5373a20-daec-4e3e-8de4-3d8e1533b586" />
 
 <img width="770" height="935" alt="image" src="https://github.com/user-attachments/assets/5b681e49-ca04-4989-8488-98a3c007865f" />
+
+
+## Task 4
+- [x] Add subscription to task4.py with `self.create_subscription` for type `Image` and hook to `image_callback()` (There doesn't seem to be a compressed topic in the rosbag)
+- [x] Similar steps as in tasks 2 and 3 for task4.py (conversions, masks, filter ranges, etc.)
+- [x] For showing the grid:
+```
+top = np.hstack((original, red))
+bottom = np.hstack((green, blue))
+grid = np.vstack((top, bottom))
+```
+
+For filtering, HSV was selected for the same reason as stated in task 3. The parameters of HSV make more sense when considering colors.
+
+Terminal 1:
+```
+ros2 bag play rosbags/lab3_2
+```
+Terminal 2:
+```
+python3 task4.py
+```
+
+Result:
+<img width="987" height="727" alt="image" src="https://github.com/user-attachments/assets/0e24f3d3-2175-47df-ac69-cc9595faf962" />
