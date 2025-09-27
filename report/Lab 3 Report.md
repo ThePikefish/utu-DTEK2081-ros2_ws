@@ -52,3 +52,53 @@ python3 task2.py
 
 Result:
 <img width="1469" height="832" alt="image" src="https://github.com/user-attachments/assets/79fa2518-feab-464b-bc5f-a2e9c5d30462" />
+
+
+## Task 3 - Color filtering with RGB and HSV
+RGB ranges:
+```
+ranges = {
+  'red': ([0, 0, 220], [50, 50, 255]),
+  'green': ([0, 200, 0], [50, 255, 50]),
+  'blue': ([220, 0, 0], [255, 80, 80]),
+  'yellow': ([0, 220, 200], [10, 255, 255]),
+  'purple': ([150, 0, 150], [250, 10, 190])
+}
+```
+HSV ranges:
+```
+ranges = {
+  'red': [
+    ([0, 50, 10], [10, 255, 255]),    # low reds
+    ([170, 50, 10], [180, 255, 255])  # high reds
+  ],
+  'green': [
+    ([40, 10, 10], [86, 255, 255])
+  ],
+  'blue': [
+    ([94, 10, 10], [126, 255, 255])
+  ],
+  'yellow': [
+    ([28, 10, 10], [32, 255, 255])
+  ],
+  'purple': [
+    ([140, 10, 10], [160, 255, 255])
+  ]
+}
+```
+
+- [x] Convert lists to numpy arrays with `np.array()`
+- [x] Mask with `cv2.inRange(image, lower_np, upper_np)` and `cv2.bitwise_and(image, image, mask=mask)`
+- [x] Convert BGR to HSV with `cv2.cvtColor(image, cv2.COLOR_BGR2HSV)`
+
+In most situations, it was easier to define the HSV ranges as they represent more understandable features of the colors. Also, e.g. the green color of the wheel doesn't align perfectly with the "green" of RGB, which led to some surprising results first. Hence, when trying to fit these filters to real-life scenarios, the understandable parameters of HSV work much better.
+
+Run with:
+```
+python3 task3.py
+```
+
+Results:
+<img width="1288" height="903" alt="image" src="https://github.com/user-attachments/assets/a5373a20-daec-4e3e-8de4-3d8e1533b586" />
+
+<img width="770" height="935" alt="image" src="https://github.com/user-attachments/assets/5b681e49-ca04-4989-8488-98a3c007865f" />
