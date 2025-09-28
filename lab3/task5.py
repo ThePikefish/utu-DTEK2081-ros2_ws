@@ -12,25 +12,30 @@ def convolve(image, kernel):
     """Perform convolution on a grayscale image with a given kernel."""
     # TODO: Get image and kernel dimensions
     # Hint: .shape
-    img_h, img_w = 0, 0
-    k_h, k_w = 0, 0
+    img_h, img_w = image.shape
+    k_h, k_w = kernel.shape
 
     # TODO: Pad the image with zeros around the border
     # Hint: use np.pad(image, ((pad_h, pad_h), (pad_w, pad_w)), mode='')
     # Choose the type of padding to work with using the mode parameter
     pad_h = k_h // 2
     pad_w = k_w // 2
-    padded = None
+    padded = np.pad(image, ((pad_h, pad_h), (pad_w, pad_w)), mode='reflect')  # Reflection (Mirror) padding
 
     # TODO: Create an empty output image
     # Hint: matrix the same size of the current image
-    output = None
+    output = np.zeros((img_h, img_w), dtype=np.float32)
 
     # TODO: Loop over each pixel (y, x)
     # Extract the region of interest (ROI) from padded image
     # Multiply by kernel and sum up values
     # Assign to output[y, x]
     # Hint: np.sum(region * kernel)
+    for y in range(img_h):
+        for x in range(img_w):
+            region = padded[y:y + k_h, x:x + k_w]
+            output[y, x] = np.sum(region * kernel)
+    
 
     # Clip values to 0–255
     output = np.clip(output, 0, 255).astype(np.uint8)
@@ -38,27 +43,31 @@ def convolve(image, kernel):
     return output  
 
 def main():
-    image_path = "flower.png"
+    image_path = "images/flower.png"
     # Read image in grayscale
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     if image is None:
         raise FileNotFoundError("Image file not found. Place 'sample.jpg' in the same folder.")
     
-    # TODO: Define a simple 5x5 averaging kernel (all ones / 9)
-    kernel = None
+    # TODO: Define a simple 5x5 averaging kernel (all ones / 25)
+    #kernel = np.ones((5, 5), dtype=np.float32) / 25.0
+
+    # Define a simple 3x3 averaging kernel (all ones / 9)
+    kernel = np.ones((3, 3), dtype=np.float32) / 9.0
 
     # TODO: Apply convolution
     # (IN REALITY IS CROSS CORRELATION, we are not flipping the kernel)
     blurred = convolve(image, kernel)
 
-    # TODO: Create gasussian kernel and apply to image
-    gaussian_kernel = None
-    gaussina_blur = convolve(image, gaussian_kernel)
+    # TODO: Create gaussian kernel and apply to image
+    g1d = cv2.getGaussianKernel(5, 1)              
+    gaussian_kernel = (g1d @ g1d.T).astype(np.float32)  # Gaussian 5x5 with sigma=1
+    gaussian_blur = convolve(image, gaussian_kernel)
 
     # TODO: Display results (original and blurred)
     cv2.imshow("Original", image)
-    cv2.imshow("Box Blur (Manual Convolution)", blurred)
-    cv2.imshow("Gaussian Blur (Manual Convolution)", gaussina_blur)
+    cv2.imshow("Box Blur (Manual Convolution) 3x3", blurred)
+    cv2.imshow("Gaussian Blur (Manual Convolution)", gaussian_blur)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
