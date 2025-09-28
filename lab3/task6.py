@@ -12,8 +12,8 @@ def convolve(image, kernel):
     """Perform convolution on a grayscale image with a given kernel."""
     # TODO: Get image and kernel dimensions
     # Hint: .shape
-    img_h, img_w = 0, 0
-    k_h, k_w = 0, 0
+    img_h, img_w = image.shape
+    k_h, k_w = kernel.shape
 
     # TODO: Pad the image with zeros around the border
     # Hint: use np.pad(image, ((pad_h, pad_h), (pad_w, pad_w)), mode='constant')
@@ -23,13 +23,18 @@ def convolve(image, kernel):
 
     # TODO: Create an empty output image
     # Hint: matrix the same size of the current image
-    output = None
+    output = np.zeros((img_h, img_w), dtype=np.float32)
 
     # TODO: Loop over each pixel (y, x)
     # Extract the region of interest (ROI) from padded image
     # Multiply by kernel and sum up values
     # Assign to output[y, x]
     # Hint: np.sum(region * kernel)
+    for y in range(img_h):
+        for x in range(img_w):
+            region = padded[y:y + k_h, x:x + k_w]
+            output[y, x] = np.sum(region * kernel)
+    
 
     # Clip values to 0–255
     output = np.clip(output, 0, 255).astype(np.uint8)
@@ -37,24 +42,26 @@ def convolve(image, kernel):
     return output  
 
 def main():
-    image_path = "flower.png"
+    image_path = "images/classroom.png"
     # Read image in grayscale
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     if image is None:
         raise FileNotFoundError("Image file not found. Place 'sample.jpg' in the same folder.")
     
-    # TODO: Define a simple 5x5 averaging kernel (all ones / 9)
-    kernel = None
+    # TODO: Define a simple 3x3 averaging kernel (all ones / 9)
+    kernel = np.ones((3, 3), dtype=np.float32) / 9.0
 
-    # Define a simple 3x3 sobel operators  
-    sobel_x = None
-    
-    sobel_y = None
+    # Define a simple 3x3 sobel operators
+    sobel_x = np.array([[-1, 0, 1],
+                         [-2, 0, 2],
+                         [-1, 0, 1]], dtype=np.float32)
+
+    sobel_y = np.array([[-1, -2, -1],
+                         [0, 0, 0],
+                         [1, 2, 1]], dtype=np.float32)
 
     # Apply convolution 
     # (IN REALITY IS CROSS CORRELATION, we are not flipping the kernel)
-    blurred = convolve(image, kernel)
-
     grad_x = convolve(image, sobel_x)
     grad_y = convolve(image, sobel_y)
 
@@ -64,20 +71,12 @@ def main():
     edges = cv2.normalize(edges, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
 
 
-    # TODO: Apply convolution
-    # (IN REALITY IS CROSS CORRELATION, we are not flipping the kernel)
-    grad_x = convolve(image, sobel_x)
-    grad_y = convolve(image, sobel_y)
-
-    # TODO: compute the edges soble gradient
-    edges = None
-    edges = cv2.normalize(edges, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
-
     # TODO: Display results (original and blurred)
     cv2.imshow("Original", image)
-    cv2.imshow("Soble x", image)
-    cv2.imshow("Soble y", image)
-    cv2.imshow("Soble ", image)
+    cv2.imshow("Sobel x", grad_x)
+    cv2.imshow("Sobel y", grad_y)
+    cv2.imshow("Edges", edges)
+
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
