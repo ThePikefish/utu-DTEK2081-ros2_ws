@@ -132,7 +132,6 @@ Result:
 ## Task 5
 - [x] Use Reflection (Mirror) padding
 - [x] Try two diﬀerent kernel sizes: 3x3 and 5x5. Bigger kernels blur more because they average over a larger area, losing more detail and softening edges.
-- [x] The image of box blur(5×5) uses equal weights across the window, which gives a slightly blocky blockiness and slight halos. The Gaussian blur (5×5, σ=1) tapers the weights toward the edges, so transitions along the petals are smoother and artifacts are reduced.
 - [x] Box blur uses uniform weights and can introduce blockiness and slight halos. Gaussian uses smoothly decaying weights, producing more natural smoothing with fewer artifacts. In the results, the 5×5 box blur shows chunkier petal edges and faint halos, but the 5×5 Gaussian (σ=1) has smoother transitions along the petals and a cleaner background.
 - [x] Ran `python3 task5.py`
 
