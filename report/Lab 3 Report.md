@@ -124,6 +124,7 @@ Terminal 2:
 ```
 python3 task4.py
 ```
+<img width="982" height="706" alt="lab3task6" src="https://github.com/user-attachments/assets/8423e1cc-5fbc-4d4b-9396-c6865e287874" />
 
 Result:
 <img width="987" height="727" alt="image" src="https://github.com/user-attachments/assets/0e24f3d3-2175-47df-ac69-cc9595faf962" />
@@ -137,6 +138,15 @@ Result:
 
 <img width="970" height="704" alt="lab3task5" src="https://github.com/user-attachments/assets/e32620ff-7336-4d36-860d-f12b6204288f" />
 
+## Task 6
+- [x] Created the sobel_x and sobel_y kernels
+- [x] Ran `python3 task6.py`
 
+<img width="982" height="706" alt="lab3task6" src="https://github.com/user-attachments/assets/08fa0479-9f6e-4805-ae35-0c6c21325fc8" />
+
+
+## Task 7
+- [x] Created the sobel_x and sobel_y kernels
+- [x] Ran `python3 task6.py`
 
 
