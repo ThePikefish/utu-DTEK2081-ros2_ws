@@ -31,6 +31,9 @@ class HarrisCornerStudent(Node):
         # TODO: Subscribe to raw and/or compressed image topics
         # self.image_sub = ...
         # self.compressed_sub = ...
+        self.subscription = self.create_subscription(Image, '/image_raw', self.image_callback, qos)
+        self.subscription
+        self.get_logger().info("Image Bag Processor initialized")
 
     # -----------------------------
     # Callbacks
@@ -38,7 +41,7 @@ class HarrisCornerStudent(Node):
     def image_callback(self, msg):
         try:
             # TODO: Convert ROS Image to OpenCV format
-            cv_image = None
+            cv_image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
 
             processed = self.process_cv_image(cv_image)
             cv2.imshow("Harris Corners - Student", processed)
@@ -62,31 +65,64 @@ class HarrisCornerStudent(Node):
     # -----------------------------
     def process_cv_image(self, image):
         # TODO: Resize image if needed
-        frame = image
+        new_width = 400
+        height, width, _ = image.shape
+        aspect_ratio = height / width
+        new_height = int(new_width * aspect_ratio)
+        frame = cv2.resize(image, (new_width, new_height))
 
         # TODO: Convert to grayscale
         # Hint: cv.cvtColor(src, code[, dst[, dstCn]])
-        gray = None
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        gray32 = np.float32(gray)
 
         # TODO: Harris corner detection
         # Hint: cv2.cornerHarris(src, blockSize, ksize, k[, dst[, borderType]])
-        dst = None
+        dst = cv2.cornerHarris(gray32, 2, 3, 0.04)   # blockSize=2, ksize=3, k=0.04
+        dst_vis = cv2.dilate(dst, None)  # Dilate to mark the corners
 
         # TODO: Create a heatmap visualization of the Harris response
         # Hint 1. cv2.normalize(src, dst, alpha, beta, norm_type[, dtype])
         #      2. cv2.applyColorMap(src, colormap[, dst])
-        heatmap = None
-
+        heatmap = cv2.normalize(dst_vis, None, 0, 255, cv2.NORM_MINMAX)
+        heatmap = cv2.applyColorMap(heatmap.astype(np.uint8), cv2.COLORMAP_JET)
+        
         # TODO: Mark corners on original image
-        corners_img = frame
+        corners_img = frame.copy()
+        corners_img[dst_vis > 0.02 * dst_vis.max()] = (0, 255, 0)
+        
+        gray_bgr = cv2.cvtColor(cv2.convertScaleAbs(gray), cv2.COLOR_GRAY2BGR)
+
+        # Different parameters
+        dst1 = cv2.cornerHarris(gray32, 2, 3, 0.06) # blockSize=2, ksize=3, k=0.06
+        dst2 = cv2.cornerHarris(gray32, 5, 3, 0.04) # blockSize=5, ksize=3, k=0.04
+        dst_vis1 = cv2.dilate(dst1, None)
+        dst_vis2 = cv2.dilate(dst2, None)
+
+        corners_img1 = frame.copy()
+        corners_img1[dst_vis1 > 0.02 * dst_vis1.max()] = (0, 255, 0)
+
+        corners_img2 = frame.copy()
+        corners_img2[dst_vis2 > 0.02 * dst_vis2.max()] = (0, 255, 0)
+
+
 
         # TODO: Add labels for each image (Original, Grayscale, Heatmap, Corners Overlay)
         # e.g., cv2.putText(...)
+        cv2.putText(frame, "Original", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        cv2.putText(gray_bgr, "Grayscale", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+        cv2.putText(heatmap, "Harris Heatmap", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+        cv2.putText(corners_img, "Corners Overlay, b=2 ksize=3 k=0.04", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        cv2.putText(corners_img1, "Corners Overlay, b=2 ksize=3 k=0.06", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        cv2.putText(corners_img2, "Corners Overlay, b=5 ksize=3 k=0.04", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
-        # TODO: Stack images in a 2x2 grid for step-by-step visualization
-        top = np.hstack((frame, gray)) if gray is not None else frame
-        bottom = np.hstack((heatmap, corners_img)) if heatmap is not None else corners_img
-        grid = np.vstack((top, bottom)) if gray is not None and heatmap is not None else frame
+        
+        # TODO: Stack images
+        top    = np.hstack((frame, gray_bgr))        
+        middle = np.hstack((heatmap, corners_img)) 
+        bottom   = np.hstack((corners_img1, corners_img2)) 
+
+        grid = np.vstack((top, middle, bottom))
 
         return grid
 
