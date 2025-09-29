@@ -72,10 +72,15 @@ def main():
 
 
     # TODO: Display results (original and blurred)
-    cv2.imshow("Original", image)
-    cv2.imshow("Sobel x", grad_x)
-    cv2.imshow("Sobel y", grad_y)
-    cv2.imshow("Edges", edges)
+    cv2.putText(image, "Original", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255, 2)
+    cv2.putText(grad_x, "Sobel X", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255, 2)
+    cv2.putText(grad_y, "Sobel Y", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255, 2)
+    cv2.putText(edges, "Sobel Magnitude", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255, 2)
+
+    top    = np.hstack((image, grad_x))
+    bottom = np.hstack((grad_y, edges))
+    grid   = np.vstack((top, bottom))
+    cv2.imshow("Sobel Edge Detection Results", grid)
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
