@@ -178,3 +178,20 @@ python3 task8.py
 Lower thresholds (Canny adj compares Canny fixed) keep more weak edges. We can see more background nets and the text on the paper. Compared to Sobel edge detection, Canny produces thinner and cleaner edges.
 
 
+## Task 9
+- [x] Implement Harris corner detection algorithm
+- [x] Generate heatmaps of corner responses
+- [x] Add one more row to the results image to display different parameter settings for corner detection
+
+Terminal 1:
+```
+ros2 bag play rosbags/lab3_3
+```
+Terminal 2:
+```
+python3 task9.py
+```
+
+<img width="800" height="900" alt="Harris Corners" src="https://github.com/user-attachments/assets/9eb04df2-e700-4c8b-a28d-25e873458b32" />
+
+Small blockSize values detect fine corners but are noisier, larger values are more stable and favor bigger features. Increasing ksize smooths noise but thickens edges and reduces positional accuracy. Smaller k values are more sensitive and detect more corners but are more noise-prone, whereas larger k values are more conservative.
