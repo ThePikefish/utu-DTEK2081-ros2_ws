@@ -124,7 +124,6 @@ Terminal 2:
 ```
 python3 task4.py
 ```
-<img width="982" height="706" alt="lab3task6" src="https://github.com/user-attachments/assets/8423e1cc-5fbc-4d4b-9396-c6865e287874" />
 
 Result:
 <img width="987" height="727" alt="image" src="https://github.com/user-attachments/assets/0e24f3d3-2175-47df-ac69-cc9595faf962" />
@@ -146,7 +145,17 @@ Result:
 
 
 ## Task 7
-- [x] Created the sobel_x and sobel_y kernels
-- [x] Ran `python3 task6.py`
+- [x] Apply Sobel edge detection to live video streams by using OpenCV's built-in functions
+
+Terminal 1:
+```
+ros2 bag play rosbags/lab3_2
+```
+Terminal 2:
+```
+python3 task7.py
+```
+<img width="1000" height="750" alt="Sobel Grid_1" src="https://github.com/user-attachments/assets/c7fde8a8-09c9-44b9-aa07-376a3071a77b" />
+<img width="1000" height="750" alt="Sobel Grid_2" src="https://github.com/user-attachments/assets/dbe69e6e-a0fd-46e4-b2d9-012dd9210001" />
 
 
