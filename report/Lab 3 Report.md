@@ -159,3 +159,22 @@ python3 task7.py
 <img width="1000" height="750" alt="Sobel Grid_2" src="https://github.com/user-attachments/assets/dbe69e6e-a0fd-46e4-b2d9-012dd9210001" />
 
 
+## Task 8
+- [x] Add Trackbar for adjusting the high and low thresholds of Canny edge detection
+- [x] The default setting is low threshold = 100, high threshold = 200
+- [x] Change the low threshold = 50, high threshold = 100
+
+Terminal 1:
+```
+ros2 bag play rosbags/lab3_2
+```
+Terminal 2:
+```
+python3 task8.py
+```
+
+<img width="1354" height="677" alt="Canny Grid" src="https://github.com/user-attachments/assets/77597195-b421-460e-b7b4-981265fa1108" />
+
+Lower thresholds (Canny adj compares Canny fixed) keep more weak edges. We can see more background nets and the text on the paper. Compared to Sobel edge detection, Canny produces thinner and cleaner edges.
+
+
