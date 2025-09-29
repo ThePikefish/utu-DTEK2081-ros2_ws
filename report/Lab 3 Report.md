@@ -135,7 +135,8 @@ Result:
 - [x] Box blur uses uniform weights and can introduce blockiness and slight halos. Gaussian uses smoothly decaying weights, producing more natural smoothing with fewer artifacts. In the results, the 5×5 box blur shows chunkier petal edges and faint halos, but the 5×5 Gaussian (σ=1) has smoother transitions along the petals and a cleaner background.
 - [x] Ran `python3 task5.py`
 
-<img width="970" height="704" alt="lab3task5" src="https://github.com/user-attachments/assets/e32620ff-7336-4d36-860d-f12b6204288f" />
+<img width="2000" height="1376" alt="task5" src="https://github.com/user-attachments/assets/cf13e759-642a-479c-87e4-9b2bf189e321" />
+
 
 ## Task 6
 - [x] Created the sobel_x and sobel_y kernels
