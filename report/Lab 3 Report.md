@@ -142,7 +142,7 @@ Result:
 - [x] Created the sobel_x and sobel_y kernels
 - [x] Ran `python3 task6.py`
 
-<img width="2400" height="1600" alt="task6" src="https://github.com/user-attachments/assets/98d47eb1-6bfe-4793-8d84-c3aafc455d8e" />
+<img width="2400" height="1600" alt="task6" src="https://github.com/user-attachments/assets/078d3e9b-36ad-40b9-ad7a-6d4833f7d97e" />
 
 
 ## Task 7
