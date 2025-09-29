@@ -50,14 +50,15 @@ def main():
         raise FileNotFoundError("Image file not found. Place 'sample.jpg' in the same folder.")
     
     # TODO: Define a simple 5x5 averaging kernel (all ones / 25)
-    #kernel = np.ones((5, 5), dtype=np.float32) / 25.0
+    kernel5 = np.ones((5, 5), dtype=np.float32) / 25.0
 
     # Define a simple 3x3 averaging kernel (all ones / 9)
-    kernel = np.ones((3, 3), dtype=np.float32) / 9.0
+    kernel3 = np.ones((3, 3), dtype=np.float32) / 9.0
 
     # TODO: Apply convolution
     # (IN REALITY IS CROSS CORRELATION, we are not flipping the kernel)
-    blurred = convolve(image, kernel)
+    blurred3 = convolve(image, kernel3)
+    blurred5 = convolve(image, kernel5)
 
     # TODO: Create gaussian kernel and apply to image
     g1d = cv2.getGaussianKernel(5, 1)              
@@ -65,9 +66,16 @@ def main():
     gaussian_blur = convolve(image, gaussian_kernel)
 
     # TODO: Display results (original and blurred)
-    cv2.imshow("Original", image)
-    cv2.imshow("Box Blur (Manual Convolution) 3x3", blurred)
-    cv2.imshow("Gaussian Blur (Manual Convolution)", gaussian_blur)
+    cv2.putText(image, "Original", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255, 2)
+    cv2.putText(blurred3, "Box Blur (Manual Convolution) 3x3", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255, 2)
+    cv2.putText(blurred5, "Box Blur (Manual Convolution) 5x5", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255, 2)
+    cv2.putText(gaussian_blur, "Gaussian Blur (Manual Convolution)", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255, 2)
+
+    top    = np.hstack((image, blurred3))
+    bottom = np.hstack((blurred5, gaussian_blur))
+    grid   = np.vstack((top, bottom))
+    cv2.imshow("Convolution Results", grid)
+
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
