@@ -36,14 +36,19 @@ Therefore the */feature_scan* only shows points between distances of 1.0 and 2.5
     - [x] Add the new topic similarly
     - [x] Adjust the visualization settings so each topic looks different
 
-(Picture)
+<img width="1033" height="741" alt="image" src="https://github.com/user-attachments/assets/d9d42b34-babc-40b1-bda3-bb046de1c618" />
+
 
 - [x] Converted to points to plot-friendly format
 - Used AI (gemini) to help with the polar-to-cartesian conversion
 - [x] There was a problem with QoS mitchmatches so adjusted the policy
+
+<img width="1033" height="741" alt="image" src="https://github.com/user-attachments/assets/5e9659a7-3199-4301-af51-ad971ee91d84" />
+
 
 ## Task 2 - Corner and line detection
 - [x] Use the earliers codes as a starting point (cartesian conversion, overall structure, etc.)
 - [x] *detect_corners* looks at a small window at time and iterates through the points and calls angle calculation on points
 - [x] Convert to PointCloud(2) and publish
 - Used AI (gemini) to help with understanding the math for calculating angles
+<img width="1033" height="741" alt="image" src="https://github.com/user-attachments/assets/d4a9ee14-0e14-4aed-b867-0b44cad702a0" />
