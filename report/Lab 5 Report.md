@@ -52,3 +52,22 @@ Therefore the */feature_scan* only shows points between distances of 1.0 and 2.5
 - [x] Convert to PointCloud(2) and publish
 - Used AI (gemini) to help with understanding the math for calculating angles
 <img width="1033" height="741" alt="image" src="https://github.com/user-attachments/assets/d4a9ee14-0e14-4aed-b867-0b44cad702a0" />
+
+
+
+## Task 3 - Grid map 
+
+- [x] Create new ros2 package with `ros2 pkg create --build-type ament_python lidar_grid_map`
+- [x] Create a python file grid_mapper.py
+    - [x] Create a new ROS node that subscribes to the /odom and /scan topics
+    - [x] Use bresenham_points from example code
+    - [x] Move the robot, and save the snapshot every 15s
+    - [x] Store and save the final map to final_map.csv
+- terminal 1, run 'ros2 launch turtlebot3_gazebo turtlebot3_dqn_stage4.launch.py'
+  <img width="764" height="738" alt="lab5t3" src="https://github.com/user-attachments/assets/b215b639-9257-45e9-9633-5f9f4c68e621" />
+
+- terminal 2, run 'ros2 run lidar_grid_map grid_mapper'
+- terminal 3, run 'ros2 run teleop_twist_keyboard teleop_twist_keyboard'
+<img width="1633" height="922" alt="lab5t3b" src="https://github.com/user-attachments/assets/83fcd109-db9a-4ddc-9222-710dfc308300" />
+
+
