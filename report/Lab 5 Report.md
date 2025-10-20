@@ -71,7 +71,7 @@ Therefore the */feature_scan* only shows points between distances of 1.0 and 2.5
 <img width="1633" height="922" alt="lab5t3b" src="https://github.com/user-attachments/assets/83fcd109-db9a-4ddc-9222-710dfc308300" />
 
 ## Task 4 - PF
-- terminal 1, run `ros2 launch turtlebot3_gazebo empty_world.launch.py`, add a a coke can
+- terminal 1, run `ros2 launch turtlebot3_gazebo empty_world.launch.py`, add a coke can
 <img width="1053" height="792" alt="lab5task4" src="https://github.com/user-attachments/assets/953b78e6-a093-4b5b-b02b-3da40d63b95e" />
  
 - [x] Modify Task4_pfilter_template.py
