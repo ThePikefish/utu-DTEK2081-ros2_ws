@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'lidar_plotter = lab5_feature_detector.Task1_lidar_plot:main',
             'feature_extracter = lab5_feature_detector.Task1_feature_detector:main',
+            'corner_line_detector = lab5_feature_detector.Task2_feature_detector:main'
         ],
     },
 )

@@ -38,4 +38,12 @@ Therefore the */feature_scan* only shows points between distances of 1.0 and 2.5
 
 (Picture)
 
-- [x] Plot...
+- [x] Converted to points to plot-friendly format
+- Used AI (gemini) to help with the polar-to-cartesian conversion
+- [x] There was a problem with QoS mitchmatches so adjusted the policy
+
+## Task 2 - Corner and line detection
+- [x] Use the earliers codes as a starting point (cartesian conversion, overall structure, etc.)
+- [x] *detect_corners* looks at a small window at time and iterates through the points and calls angle calculation on points
+- [x] Convert to PointCloud(2) and publish
+- Used AI (gemini) to help with understanding the math for calculating angles
