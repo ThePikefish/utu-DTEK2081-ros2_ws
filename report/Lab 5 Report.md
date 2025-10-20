@@ -63,11 +63,24 @@ Therefore the */feature_scan* only shows points between distances of 1.0 and 2.5
     - [x] Use bresenham_points from example code
     - [x] Move the robot, and save the snapshot every 15s
     - [x] Store and save the final map to final_map.csv
-- terminal 1, run 'ros2 launch turtlebot3_gazebo turtlebot3_dqn_stage4.launch.py'
+- terminal 1, run `ros2 launch turtlebot3_gazebo turtlebot3_dqn_stage4.launch.py`
   <img width="764" height="738" alt="lab5t3" src="https://github.com/user-attachments/assets/b215b639-9257-45e9-9633-5f9f4c68e621" />
 
-- terminal 2, run 'ros2 run lidar_grid_map grid_mapper'
-- terminal 3, run 'ros2 run teleop_twist_keyboard teleop_twist_keyboard'
+- terminal 2, run `ros2 run lidar_grid_map grid_mapper`
+- terminal 3, run `ros2 run teleop_twist_keyboard teleop_twist_keyboard`
 <img width="1633" height="922" alt="lab5t3b" src="https://github.com/user-attachments/assets/83fcd109-db9a-4ddc-9222-710dfc308300" />
+
+## Task 4 - PF
+- terminal 1, run `ros2 launch turtlebot3_gazebo empty_world.launch.py`, add a a coke can
+<img width="1053" height="792" alt="lab5task4" src="https://github.com/user-attachments/assets/953b78e6-a093-4b5b-b02b-3da40d63b95e" />
+ 
+- [x] Modify Task4_pfilter_template.py
+    - [x] Change obstacle position
+    - [x] Change def update_filter(self)
+    - [x] In main(), add code to draw a plot and save to a png file
+
+- terminal 2, run `./Task4_pfilter_template.py` (Before that install pfilter and modify #!/usr/bin/env python to #!/usr/bin/env python3)
+- terminal 3, run `ros2 run teleop_twist_keyboard teleop_twist_keyboard`, and go straight
+<img width="821" height="817" alt="pf_vs_odom" src="https://github.com/user-attachments/assets/aed3d942-9723-492e-a247-9a7d92e89917" />
 
 
