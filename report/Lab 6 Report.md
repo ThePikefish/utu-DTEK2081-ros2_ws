@@ -44,6 +44,36 @@ ros2 run group2_navigation_stack waypoint_follower
 
 <img width="1157" height="908" alt="twist_vs_time" src="https://github.com/user-attachments/assets/6da92aa0-76d2-4fb2-9c80-156936d55169" />
 
+## Task 2
 
+- [x] Created `build_graph_waypoints.py`, use the example code to create the corresponding adjacency matrix and weight matrix, and draw graph.
+- [x] Ran the file `./build_graph_waypoints.py` and get the following results
+<img width="1980" height="1320" alt="graph" src="https://github.com/user-attachments/assets/1987950f-ec7a-4389-932f-1ab395efa883" />
+<img width="504" height="538" alt="task2" src="https://github.com/user-attachments/assets/6a462022-0262-4534-af6d-351408157a32" />
+- [x] Created `dijkstra_path.py`, 
+
+colcon build --packages-select group2_navigation_stack
+source install/setup.bash
+
+terminal 1
+```
+ros2 launch group2_navigation_stack lab6_gazebo.launch.py
+```
+
+terminal 2
+```
+ros2 run group2_navigation_stack dijkstra_path
+```
+
+Set the goal is the point 9, and start from point 0, the result is
+<img width="862" height="50" alt="t2t1" src="https://github.com/user-attachments/assets/fd69f604-016a-4ad6-9d25-227bf101b999" />
+
+In Gazebo, move the robot to the place near point 2 and point 3, the goal is still point 9, the result is 
+<img width="799" height="49" alt="t2t2" src="https://github.com/user-attachments/assets/bc1c7aac-4203-4031-92b5-589cad7f5053" />
+
+Set the goal is the point 8, and start from point 0, the result is
+<img width="811" height="47" alt="t2t3" src="https://github.com/user-attachments/assets/b9ebd5d7-71be-4af8-aa23-04bd9a06afcb" />
+
+The recorded viedos can be found in the .. folder.
 
 
