@@ -68,12 +68,12 @@ def a_star(A, W, NODES, start, goal):
 
     f_start = g_score[start] + h_start
 
-    pq = PriorityQueue()  # (g_score, f_score, node_index, path_list)
-    pq.put((0.0, f_start, start, [start]))
+    pq = PriorityQueue()  # (f_score, g_score, node_index, path_list)
+    pq.put((f_start, 0.0, start, [start]))
     
     while not pq.empty():
         # Get node with lowest f_score
-        g_u, f_u, u, path = pq.get()
+        f_u, g_u, u, path = pq.get()
 
         if g_u > g_score[u]:
             continue
@@ -93,7 +93,7 @@ def a_star(A, W, NODES, start, goal):
                     h_v = float(np.linalg.norm(NODES[v] - NODES[start]))
                     f_v = alt_g + h_v
 
-                    pq.put((alt_g, f_v, v, path+[v]))
+                    pq.put((f_v, alt_g, v, path+[v]))
 
     # No path found
     return [], math.inf

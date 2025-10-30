@@ -33,6 +33,7 @@ setup(
             'grid_mapper = group2_navigation_stack.grid_mapper:main',
             'waypoint_follower = group2_navigation_stack.waypoint_follower:main',
             'dijkstra_path = group2_navigation_stack.dijkstra_path:main',
+            'a_star_path = group2_navigation_stack.a_star_path:main',
         ],
     },
 )
