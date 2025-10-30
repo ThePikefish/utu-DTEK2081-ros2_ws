@@ -34,6 +34,7 @@ setup(
             'waypoint_follower = group2_navigation_stack.waypoint_follower:main',
             'dijkstra_path = group2_navigation_stack.dijkstra_path:main',
             'a_star_path = group2_navigation_stack.a_star_path:main',
+            'extended_dijkstra_path = group2_navigation_stack.extended_dijkstra_path:main',
         ],
     },
 )
