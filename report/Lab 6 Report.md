@@ -101,8 +101,35 @@ ros2 run group2_navigation_stack a_star_path
 ```
 
 Testing results with the same three paths as in task 2:
-- `Planned once using A*: 0 -> 1 -> 6 -> 5 -> 4 -> 9  (length=9.12 m)` (Same)
-- `Planned once using A*: 3 -> 9  (length=4.84 m)` (Same)
-- `Planned once using A*: 0 -> 1 -> 6 -> 7 -> 8  (length=8.16 m)` (Same)
-All paths are the same, likely because the map is very simple, easily leading to the same result between Dijkstra and A*.
-- Conclusion: testing found no difference, but expecting that the A* works correctly.
+
+0 -> 9
+```
+[dijkstra_path]: Explored nodes: [0, 1, 2, 6, 3, 5, 4, 7, 8, 9]
+[dijkstra_path]: Planned once using Dijkstra: 0 -> 1 -> 6 -> 5 -> 4 -> 9  (length=9.12 m)
+
+[a_star_path]: Explored nodes: [0, 1, 2, 6, 5, 3, 4, 7, 8, 9]
+[a_star_path]: Planned once using A*: 0 -> 1 -> 6 -> 5 -> 4 -> 9  (length=9.12 m)
+```
+
+3 -> 9
+```
+[dijkstra_path]: Explored nodes: [3, 2, 4, 5, 1, 0, 6, 9]
+[dijkstra_path]: Planned once using Dijkstra: 3 -> 9  (length=4.84 m)
+
+[a_star_path]: Explored nodes: [3, 2, 4, 5, 1, 6, 0, 9]
+[a_star_path]: Planned once using A*: 3 -> 9  (length=4.84 m)
+```
+
+0 -> 8
+```
+[dijkstra_path]: Explored nodes: [0, 1, 2, 6, 3, 5, 4, 7, 8]
+[dijkstra_path]: Planned once using Dijkstra: 0 -> 1 -> 6 -> 7 -> 8  (length=8.16 m)
+
+[a_star_path]: Explored nodes: [0, 1, 2, 6, 5, 3, 4, 7, 8]
+[a_star_path]: Planned once using A*: 0 -> 1 -> 6 -> 7 -> 8  (length=8.16 m)
+```
+
+Conclusion:
+- All paths are the same, as both algorithms find the best path.
+- There is a slight difference in exploration order. In these cases, when examining the grid map, the A* algorithm appears to prioritise better towards the goal as expected.
+- The count of explored nodes stays the same. This is likely because the map is very simple. 
