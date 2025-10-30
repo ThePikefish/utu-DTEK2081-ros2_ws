@@ -70,6 +70,8 @@ def a_star(A, W, NODES, start, goal):
 
     pq = PriorityQueue()  # (f_score, g_score, node_index, path_list)
     pq.put((f_start, 0.0, start, [start]))
+
+    explored_nodes = []
     
     while not pq.empty():
         # Get node with lowest f_score
@@ -77,8 +79,11 @@ def a_star(A, W, NODES, start, goal):
 
         if g_u > g_score[u]:
             continue
+
+        explored_nodes.append(u) # For tracking explored nodes
+
         if u == goal:
-            return path, g_u  # Goal found
+            return path, g_u, explored_nodes  # Goal found
         
         # Explore neighbours
         for v, is_nb in enumerate(A[u]):
@@ -96,7 +101,7 @@ def a_star(A, W, NODES, start, goal):
                     pq.put((f_v, alt_g, v, path+[v]))
 
     # No path found
-    return [], math.inf
+    return [], math.inf, []
 
 
 class AStarPath(Node):
@@ -134,7 +139,9 @@ class AStarPath(Node):
         dists = np.linalg.norm(NODES - np.array([self.x,self.y]), axis=1)
         start_idx = int(np.argmin(dists))
 
-        path_nodes, total = a_star(self.A, self.W, NODES, start_idx, GOAL_IDX)
+        path_nodes, total, explored_nodes = a_star(self.A, self.W, NODES, start_idx, GOAL_IDX)
+
+        self.get_logger().info(f"Explored nodes: {explored_nodes}")
 
         if not path_nodes:
             self.get_logger().error("No path found from node {} to {}.".format(start_idx, GOAL_IDX))

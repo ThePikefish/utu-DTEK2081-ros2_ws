@@ -58,19 +58,21 @@ def dijkstra(A, W, start, goal):
     dist[start] = 0.0
     pq = PriorityQueue()  # (cost, node, path)
     pq.put((0.0, start, [start]))
+    explored_nodes = []
     while not pq.empty():
         cost,u,path = pq.get()
         if cost > dist[u]:
             continue
+        explored_nodes.append(u) # For tracking explored nodes
         if u == goal:
-            return path, cost
+            return path, cost, explored_nodes
         for v, is_nb in enumerate(A[u]):
             if is_nb == 1:
                 alt = cost + float(W[u,v])
                 if alt < dist[v]:
                     dist[v]=alt; prev[v]=u
                     pq.put((alt, v, path+[v]))
-    return [], math.inf
+    return [], math.inf, []
 
 class DijkstraPath(Node):
     def __init__(self):
@@ -107,7 +109,10 @@ class DijkstraPath(Node):
         dists = np.linalg.norm(NODES - np.array([self.x,self.y]), axis=1)
         start_idx = int(np.argmin(dists))
 
-        path_nodes, total = dijkstra(self.A, self.W, start_idx, GOAL_IDX)
+        path_nodes, total, explored_nodes = dijkstra(self.A, self.W, start_idx, GOAL_IDX)
+
+        self.get_logger().info(f"Explored nodes: {explored_nodes}")
+
         if not path_nodes:
             self.get_logger().error("No path found from node {} to {}.".format(start_idx, GOAL_IDX))
             self.done = True
