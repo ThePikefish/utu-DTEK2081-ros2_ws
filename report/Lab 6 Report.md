@@ -51,7 +51,8 @@ ros2 run group2_navigation_stack waypoint_follower
 - [x] Ran the file `./build_graph_waypoints.py` and get the following results
 <img width="1980" height="1320" alt="graph" src="https://github.com/user-attachments/assets/1987950f-ec7a-4389-932f-1ab395efa883" />
 <img width="504" height="538" alt="task2" src="https://github.com/user-attachments/assets/6a462022-0262-4534-af6d-351408157a32" />
-- [x] Created `dijkstra_path.py`, 
+
+- [x] Created `dijkstra_path.py` 
 
 colcon build --packages-select group2_navigation_stack
 source install/setup.bash
