@@ -34,6 +34,7 @@ terminal 2
 ```
 ros2 run group2_navigation_stack grid_mapper
 ```
+The grid_mapper.py will save the map to OUTPUT_DIR = os.path.expanduser('/home/ws/maps'). When run it, the directory maybe need to changed for the reason of permission requirement.
 
 terminal 3
 ```
@@ -74,7 +75,7 @@ In Gazebo, move the robot to the place near point 2 and point 3, the goal is sti
 Set the goal is the point 8, and start from point 0, the result is
 <img width="811" height="47" alt="t2t3" src="https://github.com/user-attachments/assets/b9ebd5d7-71be-4af8-aa23-04bd9a06afcb" />
 
-The recorded videos can be found in the .. folder.
+The recorded videos can be found in the lab6output folder.
 
 ## Task 3 - A*
 - [x] Created `a_star_path.py`.
